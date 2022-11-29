@@ -13,4 +13,26 @@ class Application < Sinatra::Base
     also_reload 'lib/album_repository'
     also_reload 'lib/artist_repository'
   end
+
+  get '/albums' do
+    repo = AlbumRepository.new
+    albums = repo.all
+
+    response_2 = albums.map do |album|
+      album.title
+    end.sort.join(", ")
+
+    return response_2
+  end
+
+  post '/albums' do
+    repo = AlbumRepository.new
+    new_album = Album.new
+    new_album.title = params[:title]
+    new_album.release_year = params[:release_year]
+    new_album.artist_id = params[:artist_id]
+
+    repo.create(new_album)
+    return nil
+  end
 end
