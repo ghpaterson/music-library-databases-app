@@ -2,11 +2,11 @@ require "spec_helper"
 require "rack/test"
 require_relative '../../app'
 
-# def reset_albums_table
-#   seed_sql = File.read('spec/seeds/album_seeds.sql')
-#   connection = PG.connect({ host: '127.0.0.1', dbname: 'music_library_test' })
-#   connection.exec(seed_sql)
-# end
+def reset_albums_table
+  seed_sql = File.read('spec/seeds/music_library.sql')
+  connection = PG.connect({ host: '127.0.0.1', dbname: 'music_library_test' })
+  connection.exec(seed_sql)
+end
 
 describe Application do
  
@@ -59,7 +59,6 @@ describe Application do
       expect(response_2.status).to eq 200
       expect(response_2.body).to eq(expected_response)
     end
-
   end
 end
 

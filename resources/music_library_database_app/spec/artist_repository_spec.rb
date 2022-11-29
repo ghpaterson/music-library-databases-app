@@ -21,6 +21,16 @@ describe ArtistRepository do
     expect(artists.first.name).to eq('Pixies')
   end
 
+
+  it 'finds one artist' do
+    repo = ArtistRepository.new
+
+    artist = repo.find(3)
+    
+    expect(artist.id).to eq(3)
+    expect(artist.name).to eq('Taylor Swift')
+  end
+
   it 'creates an album' do
     repo = ArtistRepository.new
 
@@ -34,15 +44,5 @@ describe ArtistRepository do
     expect(artists.length).to eq(5)
     expect(artists.last.name).to eq('Kiasmos')
   end
-
-  it 'finds one artist' do
-    repo = ArtistRepository.new
-
-    artist = repo.find(3)
-    
-    expect(artist.id).to eq(3)
-    expect(artist.name).to eq('Taylor Swift')
-  end
-
 
 end
