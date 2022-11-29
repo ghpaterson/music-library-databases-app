@@ -25,6 +25,7 @@ class Application < Sinatra::Base
     return response_2
   end
 
+
   post '/albums' do
     repo = AlbumRepository.new
     new_album = Album.new
@@ -34,5 +35,19 @@ class Application < Sinatra::Base
 
     repo.create(new_album)
     return nil
+  end
+
+  get '/artists' do
+    repo = ArtistRepository.new
+    artists = repo.all
+
+    response_2 = artists.map do |artist|
+      artist.name
+    end.join(", ")
+    return response_2
+  end
+
+  post '/artists' do
+    
   end
 end

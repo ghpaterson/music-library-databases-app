@@ -38,8 +38,28 @@ describe Application do
       expected_response = "Baltimore, Bossanova, Doolittle, Fodder on My Wings, Folklore, Here Comes the Sun, I Put a Spell on You, Lover, Ring Ring, Super Trouper, Surfer Rosa, Voyage, Waterloo"
       expect(response_2.status).to eq 200
       expect(response_2.body).to eq(expected_response)
-      # expect(response.body).to eq(expected_response)
     end
+  end
+
+  context "GET /artists" do
+    it "returns a list of all the artists" do
+      response_2 = get("/artists")
+      expected_response = "Pixies, ABBA, Taylor Swift, Nina Simone"
+      expect(response_2.status).to eq 200
+      expect(response_2.body).to eq(expected_response)
+    end
+  end
+
+  context "POST /artists" do
+    it "creates a new artist and lists all the artists" do
+      response = post("/artists", name: "Wild nothing", genre: "Indie")
+      expect(response.status).to eq 200
+      response_2 = get("/artists")
+      expected_response = "Pixies, ABBA, Taylor Swift, Nina Simone, Wild nothing"
+      expect(response_2.status).to eq 200
+      expect(response_2.body).to eq(expected_response)
+    end
+
   end
 end
 
