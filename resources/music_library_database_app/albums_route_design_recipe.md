@@ -50,19 +50,18 @@ GET /albums
 
 # Expected response:
 
-Baltimore
-Bossanova
-Doolittle
-Fodder on My Wings
-Folklore
-Here Comes the Sun
-I Put a Spell on You
-Lover
-Ring Ring
-Super Trouper
-Surfer Rosa
+Doolittle	
+Surfer Rosa	
 Waterloo
-Voyage
+Super Trouper
+Bossanova
+Lover
+Folklore
+I Put a Spell on You
+Baltimore
+Here Comes the Sun	
+Fodder on My Wings	
+Ring Ring	
 
 Response for 200 OK
 

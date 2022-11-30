@@ -23,9 +23,11 @@ describe Application do
   context "GET /albums" do
     it "returns list of album titles" do
       response_2 = get("/albums")
-      expected_response = "Baltimore, Bossanova, Doolittle, Fodder on My Wings, Folklore, Here Comes the Sun, I Put a Spell on You, Lover, Ring Ring, Super Trouper, Surfer Rosa, Waterloo"
       expect(response_2.status).to eq 200
-      expect(response_2.body).to eq(expected_response)
+      expect(response_2.body).to include('<h1>Albums</h1>')
+      expect(response_2.body).to include('<a href="/albums/1">Doolittle</a>')
+      expect(response_2.body).to include('<a href="/albums/2">Surfer Rosa</a>')
+      expect(response_2.body).to include('<a href="/albums/3">Waterloo</a>')
     end
   end
 
@@ -35,18 +37,23 @@ describe Application do
       response = post("/albums", title: "Voyage", release_year: "2022", artist_id: 2)
       expect(response.status).to eq(200)
       response_2 = get("/albums")
-      expected_response = "Baltimore, Bossanova, Doolittle, Fodder on My Wings, Folklore, Here Comes the Sun, I Put a Spell on You, Lover, Ring Ring, Super Trouper, Surfer Rosa, Voyage, Waterloo"
+      
       expect(response_2.status).to eq 200
-      expect(response_2.body).to eq(expected_response)
+      expect(response_2.body).to include('<h1>Albums</h1>')
+      expect(response_2.body).to include('Voyage')
+      #expect(response_2.body).to include('Released: 2022')
     end
   end
 
   context "GET /artists" do
     it "returns a list of all the artists" do
       response_2 = get("/artists")
-      expected_response = "Pixies, ABBA, Taylor Swift, Nina Simone"
       expect(response_2.status).to eq 200
-      expect(response_2.body).to eq(expected_response)
+      expect(response_2.body).to include('<h1>Artists</h1>')
+      expect(response_2.body).to include('<a href="/artists/1">Pixies</a>')
+      expect(response_2.body).to include('<a href="/artists/2">ABBA</a>')
+      expect(response_2.body).to include('<a href="/artists/3">Taylor Swift</a>')
+
     end
   end
 
@@ -55,10 +62,43 @@ describe Application do
       response = post("/artists", name: "Wild nothing", genre: "Indie")
       expect(response.status).to eq 200
       response_2 = get("/artists")
-      expected_response = "Pixies, ABBA, Taylor Swift, Nina Simone, Wild nothing"
       expect(response_2.status).to eq 200
-      expect(response_2.body).to eq(expected_response)
+      expect(response_2.body).to include ('<h1>Artists</h1>')
+      expect(response_2.body).to include('Wild nothing')
     end
   end
+
+  context "GET/albums/:id" do
+    it "returns information about album 1" do
+      response = get('/albums/1')
+
+      expect(response.status).to eq 200
+      expect(response.body).to include ('<h1>Doolittle</h1>')
+      expect(response.body).to include ('Release year: 1989')
+      expect(response.body).to include ('Artist: Pixies')
+    end
+
+    it "returns information about album 2" do
+      response = get('/albums/2')
+
+      expect(response.status).to eq 200
+      expect(response.body).to include ('<h1>Surfer Rosa</h1>')
+      expect(response.body).to include ('Release year: 1988')
+      expect(response.body).to include ('Artist: Pixies')
+    end
+  end
+
+  context "GET/artists/:id" do
+    it "returns info about artist 1" do
+      response = get('/artists/1')
+
+      expect(response.status).to eq 200
+      expect(response.body).to include('<h1>Pixies</h1>')
+      expect(response.body).to include ('Genre: Rock')
+    end
+  end
+
+
+  
 end
 
