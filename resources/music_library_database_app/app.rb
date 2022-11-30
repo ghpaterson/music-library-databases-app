@@ -49,6 +49,10 @@ class Application < Sinatra::Base
     return nil
   end
 
+  get '/albums/new' do
+    return erb(:new_album)
+  end
+
   get '/albums/:id' do
     repo = AlbumRepository.new
     artist_repo = ArtistRepository.new

@@ -31,6 +31,18 @@ describe Application do
     end
   end
 
+  context "Get/ albums/new" do
+    it "should return the form to add a new artist" do
+      response = get('/albums/new')
+
+      expect(response.status).to eq 200
+      expect(response.body).to include('<form method="POST" action="/albums">')
+      expect(response.body).to include('input type="text" name="album_title" />') 
+      expect(response.body).to include('input type="text" name="album_release_year" />') 
+      expect(response.body).to include('input type="text" name="album_artist_id" />') 
+    end
+  end
+
   context "POST /albums" do
     it 'creates a new album and lists all the albums' do
       
