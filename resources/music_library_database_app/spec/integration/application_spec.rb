@@ -44,6 +44,16 @@ describe Application do
   end
 
   context "POST /albums" do
+    it "should validate album parameters" do
+      response = post(
+        '/albums',
+        invalid_artist_title: 'OK computer',
+        another_invalid_thing: 123
+      )
+
+      expect(response.status).to eq 400
+    end
+
     it 'creates a new album and lists all the albums' do
       
       response = post("/albums", title: "Voyage", release_year: "2022", artist_id: 2)
