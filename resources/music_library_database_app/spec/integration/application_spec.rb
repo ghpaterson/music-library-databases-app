@@ -37,9 +37,9 @@ describe Application do
 
       expect(response.status).to eq 200
       expect(response.body).to include('<form method="POST" action="/albums">')
-      expect(response.body).to include('input type="text" name="album_title" />') 
-      expect(response.body).to include('input type="text" name="album_release_year" />') 
-      expect(response.body).to include('input type="text" name="album_artist_id" />') 
+      expect(response.body).to include('input type="text" name="title" />') 
+      expect(response.body).to include('input type="text" name="release_year" />') 
+      expect(response.body).to include('input type="text" name="artist_id" />') 
     end
   end
 
@@ -75,7 +75,17 @@ describe Application do
       expect(response_2.body).to include('<a href="/artists/1">Pixies</a>')
       expect(response_2.body).to include('<a href="/artists/2">ABBA</a>')
       expect(response_2.body).to include('<a href="/artists/3">Taylor Swift</a>')
+    end
+  end
 
+  context 'GET /artists/new' do
+    it "returns the form to create a new artist" do
+      response = get('/artists/new')
+
+      expect(response.status).to eq 200
+      expect(response.body).to include('<form method="POST" action="/artists')
+      expect(response.body).to include('input type="text" name="name" />') 
+      expect(response.body).to include('input type="text" name="genre" />')
     end
   end
 
